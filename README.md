@@ -2,7 +2,7 @@
 
 A secure, full-stack web application designed for a multi-tier store rating platform. Built using the **PERN stack** (PostgreSQL, Express.js, React, Node.js), this system features comprehensive Role-Based Access Control (RBAC) separated into three distinct corporate portals: System Administrators, Store Owners and Normal Users.
 
-## 🏗️ System Architecture
+## System Architecture
 
 The application enforces strict data validation loops at both frontend and backend layers, securing resource endpoints via JSON Web Tokens (JWT) and custom middleware routing guards.
 [ React Frontend ]  ---> ( JWT Auth / Role Guards ) ---> [ Express API Server ] ---> [ PostgreSQL Database ]
@@ -35,7 +35,7 @@ The application enforces strict data validation loops at both frontend and backe
 * Database: PostgreSQL (Relational Pooling Engine)
 
 ## Directory Scaffolding
-### 📂 Project Directory Structure
+### Project Directory Structure
 
 ```text
 store-rating-app/
