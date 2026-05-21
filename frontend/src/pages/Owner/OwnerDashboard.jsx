@@ -39,37 +39,169 @@ const OwnerDashboard = () => {
     }
   };
 
-  if (loading) return <div style={{ padding: '30px', textAlign: 'center' }}>Loading your store portal...</div>;
+  if (loading) {
+    return (
+      <div style={{ 
+        backgroundColor: '#FAF7F2', 
+        minHeight: '100vh', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        fontFamily: 'sans-serif', 
+        color: '#1E293B',
+        fontWeight: '600'
+      }}>
+        Loading your store portal...
+      </div>
+    );
+  }
 
   return (
-    <div style={{ padding: '30px', maxWidth: '1000px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+    <div style={{ 
+      backgroundColor: '#FAF7F2', 
+      minHeight: '100vh', 
+      padding: '4vw', 
+      maxWidth: '1250px', 
+      margin: '0 auto', 
+      fontFamily: 'sans-serif',
+      boxSizing: 'border-box',
+      color: '#1E293B'
+    }}>
       {/* Header Panel */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #eee', paddingBottom: '10px' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        borderBottom: '2px solid #1E293B', 
+        paddingBottom: '16px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+        gap: '16px'
+      }}>
         <div>
-          <h2 style={{ margin: '0' }}>🏪 Business Owner Portal</h2>
-          {storeData && <p style={{ margin: '5px 0 0 0', color: '#666' }}>Managing: <strong>{storeData.storeName}</strong></p>}
+          <h2 style={{ margin: '0', fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: '800' }}> Business Owner Portal</h2>
+          {storeData && <p style={{ margin: '6px 0 0 0', color: '#6B7280', fontSize: '15px' }}>Managing: <strong style={{ color: '#1E293B' }}>{storeData.storeName}</strong></p>}
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => setShowPasswordTab(!showPasswordTab)} style={{ padding: '8px 16px', background: '#6C757D', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <button 
+            onClick={() => {
+              setShowPasswordTab(!showPasswordTab);
+              setMsg({ type: '', text: '' });
+            }} 
+            style={{ 
+              padding: '10px 18px', 
+              background: '#FFFFFF', 
+              color: '#1E293B', 
+              border: '1px solid #E5E7EB', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+            }}
+          >
             {showPasswordTab ? 'Back to Analytics' : 'Change Password'}
           </button>
-          <button onClick={logout} style={{ padding: '8px 16px', background: '#DC3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+          <button 
+            onClick={logout} 
+            style={{ 
+              padding: '10px 18px', 
+              background: '#1E293B', 
+              color: '#FAF7F2', 
+              border: 'none', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              boxShadow: '0 4px 12px rgba(30, 41, 59, 0.1)'
+            }}
+          >
+            Logout
+          </button>
         </div>
       </div>
 
-      {msg.text && <div style={{ padding: '12px', marginTop: '15px', borderRadius: '4px', background: msg.type === 'success' ? '#D4EDDA' : '#F8D7DA', color: msg.type === 'success' ? '#155724' : '#721C24' }}>{msg.text}</div>}
-      {error && <div style={{ padding: '20px', textAlign: 'center', background: '#FFF3CD', color: '#856404', marginTop: '20px', borderRadius: '6px' }}>⚠️ {error}</div>}
+      {/* Notifications and Error Banners */}
+      {msg.text && (
+        <div style={{ 
+          padding: '14px', 
+          marginBottom: '24px', 
+          borderRadius: '8px', 
+          fontWeight: '600',
+          background: '#FFFFFF', 
+          borderLeft: `5px solid ${msg.type === 'success' ? '#10B981' : '#EF4444'}`,
+          color: '#1E293B',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+        }}>
+          {msg.type === 'success' ? '✅' : '❌'} {msg.text}
+        </div>
+      )}
+
+      {error && (
+        <div style={{ 
+          padding: '16px', 
+          background: '#FFFFFF', 
+          color: '#1E293B', 
+          borderLeft: '5px solid #F59E0B',
+          marginBottom: '24px', 
+          borderRadius: '8px',
+          fontWeight: '600',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+        }}>
+          ⚠️ {error}
+        </div>
+      )}
 
       {/* CONDITIONAL WINDOW: CHANGE PASSWORD */}
       {showPasswordTab ? (
-        <div style={{ maxWidth: '400px', margin: '40px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '6px' }}>
-          <h3>Update Business Password</h3>
+        <div style={{ 
+          maxWidth: '420px', 
+          margin: '40px auto', 
+          padding: '28px', 
+          background: '#FFFFFF',
+          borderRadius: '16px',
+          boxShadow: '0 10px 30px rgba(30, 41, 59, 0.03)',
+          boxSizing: 'border-box'
+        }}>
+          <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '700' }}>Update Business Password</h3>
           <form onSubmit={handlePasswordUpdate}>
-            <div style={{ marginBottom: '15px' }}>
-              <label>New Password:</label>
-              <input type="password" required placeholder="8-16 chars, 1 Upper, 1 Special" value={passwordForm.newPassword} onChange={(e) => setPasswordForm({ newPassword: e.target.value })} style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ fontSize: '14px', fontWeight: '600', color: '#6B7280' }}>New Password:</label>
+              <input 
+                type="password" 
+                required 
+                placeholder="8-16 chars, 1 Upper, 1 Special" 
+                value={passwordForm.newPassword} 
+                onChange={(e) => setPasswordForm({ newPassword: e.target.value })} 
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  marginTop: '6px',
+                  borderRadius: '8px',
+                  border: '1px solid #E5E7EB',
+                  backgroundColor: '#FAF7F2',
+                  color: '#1E293B',
+                  boxSizing: 'border-box',
+                  outline: 'none'
+                }} 
+              />
             </div>
-            <button type="submit" style={{ width: '100%', padding: '10px', background: '#007BFF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Save New Password</button>
+            <button 
+              type="submit" 
+              style={{ 
+                width: '100%', 
+                padding: '12px', 
+                background: '#1E293B', 
+                color: '#FAF7F2', 
+                border: 'none', 
+                borderRadius: '8px', 
+                cursor: 'pointer',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(30, 41, 59, 0.1)'
+              }}
+            >
+              Save New Password
+            </button>
           </form>
         </div>
       ) : (
@@ -77,43 +209,56 @@ const OwnerDashboard = () => {
         storeData && (
           <div style={{ marginTop: '20px' }}>
             {/* Store Score Banner */}
-            <div style={{ background: '#F8F9FA', borderLeft: '6px solid #FFC107', padding: '20px', borderRadius: '4px', marginBottom: '30px' }}>
-              <h4 style={{ margin: '0 0 5px 0', color: '#555', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Current Performance</h4>
-              <p style={{ margin: '0', fontSize: '32px', fontWeight: 'bold', color: '#222' }}>
-                {storeData.averageRating > 0 ? `${storeData.averageRating} / 5 ★` : 'No Ratings Yet'}
+            <div style={{ 
+              background: '#FFFFFF', 
+              borderTop: '4px solid #F59E0B', 
+              padding: '28px 24px', 
+              borderRadius: '16px', 
+              marginBottom: '36px',
+              boxShadow: '0 10px 25px -5px rgba(30, 41, 59, 0.03)'
+            }}>
+              <h4 style={{ margin: '0 0 8px 0', color: '#6B7280', fontSize: '14px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Current Performance</h4>
+              <p style={{ margin: '0', fontSize: '38px', fontWeight: '800', color: '#1E293B' }}>
+                {storeData.averageRating > 0 ? `★ ${storeData.averageRating} / 5` : 'No Ratings Yet'}
               </p>
             </div>
 
             {/* Reviewers Data Table */}
-            <h3>Customer Feedback Log</h3>
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px', background: 'white' }}>
-              <thead>
-                <tr style={{ background: '#f4f4f4', textAlign: 'left', borderBottom: '2px solid #ddd' }}>
-                  <th style={{ padding: '12px' }}>Customer Name</th>
-                  <th style={{ padding: '12px' }}>Email</th>
-                  <th style={{ padding: '12px' }}>Address</th>
-                  <th style={{ padding: '12px' }}>Rating Given</th>
-                  <th style={{ padding: '12px' }}>Date Submitted</th>
-                </tr>
-              </thead>
-              <tbody>
-                {storeData.reviewers.length === 0 ? (
-                  <tr>
-                    <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#777' }}>No feedback submissions have been registered for your establishment yet.</td>
+            <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px' }}>Customer Feedback Log</h3>
+            
+            {/* Mobile Touch Responsive Table Scroller Pane */}
+            <div style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
+              <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'separate', borderSpacing: '0 6px' }}>
+                <thead>
+                  <tr style={{ textAlign: 'left' }}>
+                    <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Customer Name</th>
+                    <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Email</th>
+                    <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Address</th>
+                    <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Rating Given</th>
+                    <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Date Submitted</th>
                   </tr>
-                ) : (
-                  storeData.reviewers.map((rev, index) => (
-                    <tr key={index} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '12px', fontWeight: 'bold' }}>{rev.name}</td>
-                      <td style={{ padding: '12px', color: '#555' }}>{rev.email}</td>
-                      <td style={{ padding: '12px', color: '#555', fontSize: '14px' }}>{rev.address}</td>
-                      <td style={{ padding: '12px', color: '#FFC107', fontWeight: 'bold', fontSize: '16px' }}>{rev.rating_value} ★</td>
-                      <td style={{ padding: '12px', color: '#888', fontSize: '13px' }}>{new Date(rev.updated_at).toLocaleDateString()}</td>
+                </thead>
+                <tbody>
+                  {storeData.reviewers.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" style={{ padding: '30px', textAlign: 'center', color: '#6B7280', backgroundColor: '#FFFFFF' }}>
+                        No feedback submissions have been registered for your establishment yet.
+                      </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    storeData.reviewers.map((rev, index) => (
+                      <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#FAF7F2' }}>
+                        <td style={{ padding: '16px', color: '#1E293B', fontWeight: '600' }}>{rev.name}</td>
+                        <td style={{ padding: '16px', color: '#6B7280' }}>{rev.email}</td>
+                        <td style={{ padding: '16px', color: '#6B7280', fontSize: '14px' }}>{rev.address}</td>
+                        <td style={{ padding: '16px', color: '#F59E0B', fontWeight: '800', fontSize: '16px' }}>★ {rev.rating_value}</td>
+                        <td style={{ padding: '16px', color: '#6B7280', fontSize: '13px' }}>{new Date(rev.updated_at).toLocaleDateString()}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         )
       )}

@@ -17,7 +17,7 @@ const UserDashboard = () => {
       const res = await API.get(`/api/user/stores?${params}`);
       setStores(res.data);
     } catch (err) {
-      console.error('Error loading directory directory:', err);
+      console.error('Error loading directory data:', err);
     }
   };
 
@@ -52,80 +52,248 @@ const UserDashboard = () => {
   };
 
   return (
-    <div style={{ padding: '30px', maxWidth: '1100px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+    <div style={{ 
+      backgroundColor: '#FAF7F2', 
+      minHeight: '100vh', 
+      padding: '4vw', 
+      maxWidth: '1250px', 
+      margin: '0 auto', 
+      fontFamily: 'sans-serif',
+      boxSizing: 'border-box',
+      color: '#1E293B'
+    }}>
       {/* Header Panel */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #eee', paddingBottom: '10px' }}>
-        <h2>👤 Verified Customer Marketplace</h2>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => setShowPasswordTab(!showPasswordTab)} style={{ padding: '8px 16px', background: '#6C757D', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        borderBottom: '2px solid #1E293B', 
+        paddingBottom: '16px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+        gap: '16px'
+      }}>
+        <h2 style={{ margin: '0', fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: '800' }}> Verified Customer Marketplace</h2>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <button 
+            onClick={() => {
+              setShowPasswordTab(!showPasswordTab);
+              setMsg({ type: '', text: '' });
+            }} 
+            style={{ 
+              padding: '10px 18px', 
+              background: '#FFFFFF', 
+              color: '#1E293B', 
+              border: '1px solid #E5E7EB', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+            }}
+          >
             {showPasswordTab ? 'Back to Stores' : 'Change Password'}
           </button>
-          <button onClick={logout} style={{ padding: '8px 16px', background: '#DC3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+          <button 
+            onClick={logout} 
+            style={{ 
+              padding: '10px 18px', 
+              background: '#1E293B', 
+              color: '#FAF7F2', 
+              border: 'none', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              boxShadow: '0 4px 12px rgba(30, 41, 59, 0.1)'
+            }}
+          >
+            Logout
+          </button>
         </div>
       </div>
 
-      {msg.text && <div style={{ padding: '12px', marginTop: '15px', borderRadius: '4px', background: msg.type === 'success' ? '#D4EDDA' : '#F8D7DA', color: msg.type === 'success' ? '#155724' : '#721C24' }}>{msg.text}</div>}
+      {/* Dynamic Notifications */}
+      {msg.text && (
+        <div style={{ 
+          padding: '14px', 
+          marginBottom: '24px', 
+          borderRadius: '8px', 
+          fontWeight: '600',
+          background: '#FFFFFF', 
+          borderLeft: `5px solid ${msg.type === 'success' ? '#10B981' : '#EF4444'}`,
+          color: '#1E293B',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+        }}>
+          {msg.type === 'success' ? '✅' : '❌'} {msg.text}
+        </div>
+      )}
 
       {/* CONDITIONAL COMPONENT: PASSWORD REMODEL WINDOW */}
       {showPasswordTab ? (
-        <div style={{ maxWidth: '400px', margin: '40px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '6px' }}>
-          <h3>Update Your Secure Password</h3>
+        <div style={{ 
+          maxWidth: '420px', 
+          margin: '40px auto', 
+          padding: '28px', 
+          background: '#FFFFFF',
+          borderRadius: '16px',
+          boxShadow: '0 10px 30px rgba(30, 41, 59, 0.03)',
+          boxSizing: 'border-box'
+        }}>
+          <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '700' }}>Update Your Secure Password</h3>
           <form onSubmit={handlePasswordUpdate}>
-            <div style={{ marginBottom: '15px' }}>
-              <label>New Password:</label>
-              <input type="password" required placeholder="8-16 chars, 1 Upper, 1 Special" value={passwordForm.newPassword} onChange={(e) => setPasswordForm({ newPassword: e.target.value })} style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ fontSize: '14px', fontWeight: '600', color: '#6B7280' }}>New Password:</label>
+              <input 
+                type="password" 
+                required 
+                placeholder="8-16 chars, 1 Upper, 1 Special" 
+                value={passwordForm.newPassword} 
+                onChange={(e) => setPasswordForm({ newPassword: e.target.value })} 
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  marginTop: '6px',
+                  borderRadius: '8px',
+                  border: '1px solid #E5E7EB',
+                  backgroundColor: '#FAF7F2',
+                  color: '#1E293B',
+                  boxSizing: 'border-box',
+                  outline: 'none'
+                }} 
+              />
             </div>
-            <button type="submit" style={{ width: '100%', padding: '10px', background: '#007BFF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Commit Changes</button>
+            <button 
+              type="submit" 
+              style={{ 
+                width: '100%', 
+                padding: '12px', 
+                background: '#1E293B', 
+                color: '#FAF7F2', 
+                border: 'none', 
+                borderRadius: '8px', 
+                cursor: 'pointer',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(30, 41, 59, 0.1)'
+              }}
+            >
+              Commit Changes
+            </button>
           </form>
         </div>
       ) : (
         /* MAIN COMPONENT: STORE BROWSER CARDS */
         <div style={{ marginTop: '20px' }}>
           {/* Active Search & Filtering Bars */}
-          <div style={{ display: 'flex', gap: '15px', marginBottom: '25px', background: '#f8f9fa', padding: '15px', borderRadius: '6px' }}>
-            <input type="text" placeholder="🔍 Search stores by name..." value={filters.name} onChange={(e) => setFilters({ ...filters, name: e.target.value })} style={{ padding: '8px', flexGrow: '1', borderRadius: '4px', border: '1px solid #ccc' }} />
-            <input type="text" placeholder="📍 Search by address..." value={filters.address} onChange={(e) => setFilters({ ...filters, address: e.target.value })} style={{ padding: '8px', flexGrow: '1', borderRadius: '4px', border: '1px solid #ccc' }} />
-            <button onClick={() => toggleSort('overall_rating')} style={{ padding: '8px 12px', cursor: 'pointer', background: '#fff', border: '1px solid #ccc', borderRadius: '4px' }}>
+          <div style={{ 
+            display: 'flex', 
+            gap: '12px', 
+            marginBottom: '32px', 
+            background: '#FFFFFF', 
+            padding: '16px', 
+            borderRadius: '14px',
+            flexWrap: 'wrap',
+            boxShadow: '0 4px 20px rgba(30, 41, 59, 0.02)'
+          }}>
+            <input 
+              type="text" 
+              placeholder="🔍 Search stores by name..." 
+              value={filters.name} 
+              onChange={(e) => setFilters({ ...filters, name: e.target.value })} 
+              style={{ padding: '12px 16px', flex: '1 1 250px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none', boxSizing: 'border-box' }} 
+            />
+            <input 
+              type="text" 
+              placeholder="📍 Search by address..." 
+              value={filters.address} 
+              onChange={(e) => setFilters({ ...filters, address: e.target.value })} 
+              style={{ padding: '12px 16px', flex: '1 1 250px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none', boxSizing: 'border-box' }} 
+            />
+            <button 
+              onClick={() => toggleSort('overall_rating')} 
+              style={{ 
+                padding: '12px 20px', 
+                cursor: 'pointer', 
+                background: '#FFFFFF', 
+                color: '#1E293B',
+                border: '1px solid #E5E7EB', 
+                borderRadius: '8px',
+                fontWeight: '600',
+                fontSize: '14px',
+                flex: '1 1 auto'
+              }}
+            >
               Sort by Rating {filters.sortBy === 'overall_rating' ? (filters.order === 'ASC' ? '🔼' : '🔽') : '↕'}
             </button>
           </div>
 
-          {/* Dynamic Grid Layout Display */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
-            {stores.length === 0 ? <p>No registered establishments match your query.</p> : stores.map(store => (
-              <div key={store.id} style={{ padding: '20px', border: '1px solid #e0e0e0', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', background: 'white' }}>
-                <h3 style={{ margin: '0 0 8px 0', color: '#333' }}>{store.name}</h3>
-                <p style={{ margin: '0 0 12px 0', color: '#666', fontSize: '14px' }}>📍 {store.address}</p>
-                
-                {/* Visual Average Score */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderTop: '1px solid #f0f0f0', paddingTop: '12px', marginBottom: '15px' }}>
-                  <span style={{ fontSize: '14px', color: '#555' }}>Community Rating:</span>
-                  <span style={{ color: '#B06000', fontWeight: 'bold' }}>
-                    {store.overall_rating > 0 ? `${store.overall_rating} / 5 ★` : 'No reviews'}
-                  </span>
+          {/* Responsive CSS Grid Auto-Layout */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', 
+            gap: '24px' 
+          }}>
+            {stores.length === 0 ? (
+              <p style={{ gridColumn: '1/-1', textAlign: 'center', color: '#6B7280', padding: '40px 0' }}>No registered establishments match your query.</p>
+            ) : stores.map(store => (
+              <div 
+                key={store.id} 
+                style={{ 
+                  padding: '24px', 
+                  borderRadius: '16px', 
+                  backgroundColor: '#FFFFFF', 
+                  boxShadow: '0 10px 30px -5px rgba(30, 41, 59, 0.03), 0 4px 12px -2px rgba(30, 41, 59, 0.01)', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between'
+                }}
+              >
+                <div>
+                  <h3 style={{ margin: '0 0 6px 0', fontSize: '19px', color: '#1E293B', fontWeight: '700' }}>{store.name}</h3>
+                  <p style={{ margin: '0 0 20px 0', color: '#6B7280', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '4px' }}>📍 {store.address}</p>
                 </div>
+                
+                <div>
+                  {/* Visual Average Score Section */}
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', 
+                    borderTop: '1px solid #FAF7F2', 
+                    paddingTop: '16px', 
+                    marginBottom: '16px' 
+                  }}>
+                    <span style={{ fontSize: '13px', color: '#6B7280', fontWeight: '500' }}>Community Rating</span>
+                    <span style={{ color: '#F59E0B', fontWeight: '700', fontSize: '15px' }}>
+                      {store.overall_rating > 0 ? `★ ${store.overall_rating} / 5` : 'No reviews'}
+                    </span>
+                  </div>
 
-                {/* Interactive Star Selection Bar */}
-                <div style={{ background: '#f9f9f9', padding: '10px', borderRadius: '6px', textAlign: 'center' }}>
-                  <p style={{ margin: '0 0 6px 0', fontSize: '13px', color: '#444', fontWeight: store.user_submitted_rating > 0 ? 'bold' : 'normal' }}>
-                    {store.user_submitted_rating > 0 ? `Your Rating: ${store.user_submitted_rating} ★` : 'You haven\'t rated this store'}
-                  </p>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>
-                    {[1, 2, 3, 4, 5].map(star => (
-                      <span
-                        key={star}
-                        onClick={() => handleRatingSubmit(store.id, star)}
-                        style={{
-                          fontSize: '24px',
-                          cursor: 'pointer',
-                          color: star <= (store.user_submitted_rating || 0) ? '#FFC107' : '#E0E0E0',
-                          transition: 'color 0.1s ease'
-                        }}
-                        title={`Rate ${star} Stars`}
-                      >
-                        ★
-                      </span>
-                    ))}
+                  {/* Interactive Star Selection Bar */}
+                  <div style={{ backgroundColor: '#FAF7F2', padding: '14px', borderRadius: '12px', textAlign: 'center' }}>
+                    <p style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#1E293B', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.3px' }}>
+                      {store.user_submitted_rating > 0 ? `Your Rating: ${store.user_submitted_rating} ★` : 'Tap stars to submit feedback'}
+                    </p>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '6px' }}>
+                      {[1, 2, 3, 4, 5].map(star => (
+                        <span
+                          key={star}
+                          onClick={() => handleRatingSubmit(store.id, star)}
+                          style={{
+                            fontSize: '26px',
+                            cursor: 'pointer',
+                            color: star <= (store.user_submitted_rating || 0) ? '#F59E0B' : '#E5E7EB',
+                            transition: 'transform 0.1s ease, color 0.1s ease',
+                            display: 'inline-block'
+                          }}
+                          onMouseEnter={(e) => e.target.style.transform = 'scale(1.15)'}
+                          onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                          title={`Rate ${star} Stars`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

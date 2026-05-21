@@ -60,42 +60,217 @@ const Signup = () => {
   };
 
   return (
-    <div style={{ maxWidth: '450px', margin: '40px auto', padding: '25px', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>Normal User Registration</h2>
-      {success && <p style={{ color: 'green', fontWeight: 'bold' }}>Success! Redirecting to login portal...</p>}
-      {serverError && <p style={{ color: 'red', background: '#fff0f0', padding: '8px' }}>{serverError}</p>}
-      
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label>Full Name (Min 20 chars):</label>
-          <input type="text" name="name" required value={formData.name} onChange={handleChange} style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-          {uiErrors.name && <small style={{ color: 'red' }}>{uiErrors.name}</small>}
+    <div style={{
+      backgroundColor: '#FAF7F2', // Soothing warm cream canvas
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '40px 20px',
+      fontFamily: 'sans-serif',
+      boxSizing: 'border-box',
+      color: '#1E293B'
+    }}>
+      {/* Floating Authentication Card Container */}
+      <div style={{
+        width: '100%',
+        maxWidth: '480px', 
+        background: '#FFFFFF', 
+        padding: '40px 32px',
+        borderRadius: '20px',
+        boxShadow: '0 20px 40px -15px rgba(30, 41, 59, 0.05), 0 1px 3px rgba(30, 41, 59, 0.01)',
+        boxSizing: 'border-box'
+      }}>
+        
+        {/* Registration Title Block */}
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <h2 style={{ margin: '0 0 8px 0', fontSize: '26px', fontWeight: '800', letterSpacing: '-0.5px', color: '#1E293B' }}>
+            Normal User Registration
+          </h2>
+          <p style={{ margin: '0', color: '#6B7280', fontSize: '14px', fontWeight: '500' }}>
+            Create your consumer marketplace profile instance
+          </p>
         </div>
 
-        <div style={{ marginBottom: '15px' }}>
-          <label>Email Address:</label>
-          <input type="email" name="email" required value={formData.email} onChange={handleChange} style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-        </div>
+        {/* Dynamic Process Notices */}
+        {success && (
+          <div style={{ 
+            padding: '12px 14px', 
+            marginBottom: '20px', 
+            borderRadius: '8px', 
+            fontSize: '14px',
+            fontWeight: '600',
+            background: '#FFFFFF', 
+            borderLeft: '4px solid #10B981',
+            color: '#1E293B',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+          }}>
+             Success! Redirecting to login portal...
+          </div>
+        )}
 
-        <div style={{ marginBottom: '15px' }}>
-          <label>Physical Address (Max 400 chars):</label>
-          <textarea name="address" required value={formData.address} onChange={handleChange} rows="3" style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-          {uiErrors.address && <small style={{ color: 'red' }}>{uiErrors.address}</small>}
-        </div>
+        {serverError && (
+          <div style={{ 
+            padding: '12px 14px', 
+            marginBottom: '20px', 
+            borderRadius: '8px', 
+            fontSize: '14px',
+            fontWeight: '600',
+            background: '#FFFFFF', 
+            borderLeft: '4px solid #EF4444',
+            color: '#1E293B',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+          }}>
+            ⚠️ {serverError}
+          </div>
+        )}
+        
+        {/* Main Entry Form Block */}
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          
+          {/* Input Unit: Full Name */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <label style={{ fontSize: '11px', fontWeight: '700', color: '#1E293B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Full Name (Min 20 characters)
+            </label>
+            <input 
+              type="text" 
+              name="name" 
+              required 
+              placeholder="Your full legal name structure"
+              value={formData.name} 
+              onChange={handleChange} 
+              style={{ 
+                width: '100%', 
+                padding: '12px 14px', 
+                borderRadius: '8px', 
+                border: uiErrors.name ? '1px solid #EF4444' : '1px solid #E5E7EB', 
+                backgroundColor: '#FAF7F2', 
+                color: '#1E293B', 
+                fontSize: '15px', 
+                outline: 'none', 
+                boxSizing: 'border-box' 
+              }} 
+            />
+            {uiErrors.name && <small style={{ color: '#EF4444', fontWeight: '600', marginTop: '2px' }}>⚠️ {uiErrors.name}</small>}
+          </div>
 
-        <div style={{ marginBottom: '15px' }}>
-          <label>Password (8-16 chars, 1 Upper, 1 Special):</label>
-          <input type="password" name="password" required value={formData.password} onChange={handleChange} style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-          {uiErrors.password && <small style={{ color: 'red' }}>{uiErrors.password}</small>}
-        </div>
+          {/* Input Unit: Email Address */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <label style={{ fontSize: '11px', fontWeight: '700', color: '#1E293B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Email Address
+            </label>
+            <input 
+              type="email" 
+              name="email" 
+              required 
+              placeholder="name@example.com"
+              value={formData.email} 
+              onChange={handleChange} 
+              style={{ 
+                width: '100%', 
+                padding: '12px 14px', 
+                borderRadius: '8px', 
+                border: '1px solid #E5E7EB', 
+                backgroundColor: '#FAF7F2', 
+                color: '#1E293B', 
+                fontSize: '15px', 
+                outline: 'none', 
+                boxSizing: 'border-box' 
+              }} 
+            />
+          </div>
 
-        <button type="submit" style={{ width: '100%', padding: '10px', background: '#28A745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-          Complete Registration
-        </button>
-      </form>
-      <p style={{ marginTop: '15px', textAlign: 'center' }}>
-        Already possess an account? <Link to="/login">Sign in</Link>
-      </p>
+          {/* Input Unit: Physical Address */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <label style={{ fontSize: '11px', fontWeight: '700', color: '#1E293B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Physical Address (Max 400 characters)
+            </label>
+            <textarea 
+              name="address" 
+              required 
+              rows="3" 
+              placeholder="Enter complete residential location data..."
+              value={formData.address} 
+              onChange={handleChange} 
+              style={{ 
+                width: '100%', 
+                padding: '12px 14px', 
+                borderRadius: '8px', 
+                border: uiErrors.address ? '1px solid #EF4444' : '1px solid #E5E7EB', 
+                backgroundColor: '#FAF7F2', 
+                color: '#1E293B', 
+                fontSize: '15px', 
+                outline: 'none', 
+                boxSizing: 'border-box',
+                resize: 'vertical',
+                fontFamily: 'sans-serif'
+              }} 
+            />
+            {uiErrors.address && <small style={{ color: '#EF4444', fontWeight: '600', marginTop: '2px' }}>⚠️ {uiErrors.address}</small>}
+          </div>
+
+          {/* Input Unit: Password */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <label style={{ fontSize: '11px', fontWeight: '700', color: '#1E293B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Password (8-16 chars, 1 Upper, 1 Special)
+            </label>
+            <input 
+              type="password" 
+              name="password" 
+              required 
+              placeholder="••••••••••••"
+              value={formData.password} 
+              onChange={handleChange} 
+              style={{ 
+                width: '100%', 
+                padding: '12px 14px', 
+                borderRadius: '8px', 
+                border: uiErrors.password ? '1px solid #EF4444' : '1px solid #E5E7EB', 
+                backgroundColor: '#FAF7F2', 
+                color: '#1E293B', 
+                fontSize: '15px', 
+                outline: 'none', 
+                boxSizing: 'border-box' 
+              }} 
+            />
+            {uiErrors.password && <small style={{ color: '#EF4444', fontWeight: '600', marginTop: '2px' }}>⚠️ {uiErrors.password}</small>}
+          </div>
+
+          {/* Core Submit Button Accent */}
+          <button 
+            type="submit" 
+            style={{ 
+              width: '100%', 
+              padding: '14px', 
+              background: '#1E293B', 
+              color: '#FAF7F2', 
+              border: 'none', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontWeight: '700',
+              fontSize: '15px',
+              marginTop: '12px',
+              boxShadow: '0 4px 12px rgba(30, 41, 59, 0.15)',
+              transition: 'background 0.2s'
+            }}
+          >
+            Complete Registration
+          </button>
+        </form>
+
+        {/* Alternate Navigation Routing Anchor Link */}
+        <p style={{ textAlign: 'center', marginTop: '28px', marginBottom: '0', fontSize: '14px', color: '#6B7280', fontWeight: '500' }}>
+          Already possess an account?{' '}
+          <Link 
+            to="/login" 
+            style={{ color: '#1E293B', fontWeight: '700', textDecoration: 'underline' }}
+          >
+            Sign in
+          </Link>
+        </p>
+
+      </div>
     </div>
   );
 };

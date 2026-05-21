@@ -98,64 +98,148 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div style={{ padding: '30px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #eee', paddingBottom: '10px' }}>
-        <h2>👑 System Administrator Control Center</h2>
-        <button onClick={logout} style={{ padding: '8px 16px', background: '#DC3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+    <div style={{ 
+      backgroundColor: '#FAF7F2', 
+      minHeight: '100vh', 
+      padding: '4vw', 
+      maxWidth: '1250px', 
+      margin: '0 auto', 
+      fontFamily: 'sans-serif',
+      boxSizing: 'border-box',
+      color: '#1E293B'
+    }}>
+      {/* Dynamic Header */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        borderBottom: '2px solid #1E293B', 
+        paddingBottom: '16px',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+        gap: '16px'
+      }}>
+        <h2 style={{ margin: '0', fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: '800' }}> System Administrator Control Center</h2>
+        <button 
+          onClick={logout} 
+          style={{ 
+            padding: '10px 20px', 
+            background: '#1E293B', 
+            color: '#FAF7F2', 
+            border: 'none', 
+            borderRadius: '8px', 
+            cursor: 'pointer',
+            fontWeight: '600',
+            fontSize: '14px',
+            boxShadow: '0 4px 12px rgba(30, 41, 59, 0.1)'
+          }}
+        >
+          Logout
+        </button>
       </div>
 
-      {/* Tab Navigation */}
-      <div style={{ margin: '20px 0', display: 'flex', gap: '10px' }}>
-        <button onClick={() => setActiveTab('metrics')} style={{ padding: '10px 20px', background: activeTab === 'metrics' ? '#007BFF' : '#f0f0f0', color: activeTab === 'metrics' ? 'white' : 'black', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Dashboard Overview</button>
-        <button onClick={() => setActiveTab('users')} style={{ padding: '10px 20px', background: activeTab === 'users' ? '#007BFF' : '#f0f0f0', color: activeTab === 'users' ? 'white' : 'black', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Manage Users</button>
-        <button onClick={() => setActiveTab('stores')} style={{ padding: '10px 20px', background: activeTab === 'stores' ? '#007BFF' : '#f0f0f0', color: activeTab === 'stores' ? 'white' : 'black', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Manage Stores</button>
+      {/* Responsive Tab Buttons */}
+      <div style={{ margin: '24px 0', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        {['metrics', 'users', 'stores'].map((tab) => (
+          <button 
+            key={tab}
+            onClick={() => setActiveTab(tab)} 
+            style={{ 
+              padding: '12px 20px', 
+              background: activeTab === tab ? '#1E293B' : '#FFFFFF', 
+              color: activeTab === tab ? '#FAF7F2' : '#1E293B', 
+              border: activeTab === tab ? 'none' : '1px solid #E5E7EB', 
+              borderRadius: '8px', 
+              cursor: 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              flex: '1 1 auto',
+              textAlign: 'center',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+            }}
+          >
+            {tab === 'metrics' ? 'Dashboard Overview' : tab === 'users' ? 'Manage Users' : 'Manage Stores'}
+          </button>
+        ))}
       </div>
 
-      {msg.text && <div style={{ padding: '12px', marginBottom: '20px', borderRadius: '4px', background: msg.type === 'success' ? '#D4EDDA' : '#F8D7DA', color: msg.type === 'success' ? '#155724' : '#721C24' }}>{msg.text}</div>}
+      {/* Dynamic Notifications */}
+      {msg.text && (
+        <div style={{ 
+          padding: '14px', 
+          marginBottom: '24px', 
+          borderRadius: '8px', 
+          fontWeight: '600',
+          background: msg.type === 'success' ? '#FFFFFF' : '#FFFFFF', 
+          borderLeft: `5px solid ${msg.type === 'success' ? '#10B981' : '#EF4444'}`,
+          color: '#1E293B',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+        }}>
+          {msg.type === 'success' ? '✅' : '❌'} {msg.text}
+        </div>
+      )}
 
       {/* TAB 1: METRICS */}
       {activeTab === 'metrics' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginTop: '20px' }}>
-          <div style={{ padding: '30px', background: '#E8F0FE', borderRadius: '8px', textAlign: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <h3 style={{ margin: '0', color: '#1A73E8' }}>Total Users</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', margin: '10px 0 0 0' }}>{metrics.totalUsers}</p>
-          </div>
-          <div style={{ padding: '30px', background: '#E6F4EA', borderRadius: '8px', textAlign: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <h3 style={{ margin: '0', color: '#137333' }}>Registered Stores</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', margin: '10px 0 0 0' }}>{metrics.totalStores}</p>
-          </div>
-          <div style={{ padding: '30px', background: '#FEF7E0', borderRadius: '8px', textAlign: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <h3 style={{ margin: '0', color: '#B06000' }}>Submitted Ratings</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', margin: '10px 0 0 0' }}>{metrics.totalRatings}</p>
-          </div>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
+          gap: '24px', 
+          marginTop: '20px' 
+        }}>
+          {[
+            { title: 'Total Users', val: metrics.totalUsers, accent: '#3B82F6' },
+            { title: 'Registered Stores', val: metrics.totalStores, accent: '#10B981' },
+            { title: 'Submitted Ratings', val: metrics.totalRatings, accent: '#F59E0B' }
+          ].map((box, idx) => (
+            <div key={idx} style={{ 
+              padding: '32px 24px', 
+              background: '#FFFFFF', 
+              borderRadius: '16px', 
+              textAlign: 'center', 
+              boxShadow: '0 10px 25px -5px rgba(30, 41, 59, 0.03)',
+              borderTop: `4px solid ${box.accent}`
+            }}>
+              <h3 style={{ margin: '0', color: '#6B7280', fontSize: '15px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{box.title}</h3>
+              <p style={{ fontSize: '42px', fontWeight: '800', margin: '12px 0 0 0', color: '#1E293B' }}>{box.val}</p>
+            </div>
+          ))}
         </div>
       )}
 
       {/* TAB 2: MANAGE USERS */}
       {activeTab === 'users' && (
         <div>
-          <h3>Add New Corporate User (Admin / Store Owner)</h3>
-          <form onSubmit={handleCreateUser} style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px', background: '#f9f9f9', padding: '15px', borderRadius: '6px' }}>
-            <input type="text" placeholder="Name (Min 20 chars)" required value={userForm.name} onChange={(e) => setUserForm({ ...userForm, name: e.target.value })} style={{ padding: '8px' }} />
-            <input type="email" placeholder="Email" required value={userForm.email} onChange={(e) => setUserForm({ ...userForm, email: e.target.value })} style={{ padding: '8px' }} />
-            <input type="password" placeholder="Password" required value={userForm.password} onChange={(e) => setUserForm({ ...userForm, password: e.target.value })} style={{ padding: '8px' }} />
-            <input type="text" placeholder="Address" required value={userForm.address} onChange={(e) => setUserForm({ ...userForm, address: e.target.value })} style={{ padding: '8px' }} />
-            <div style={{ display: 'flex', gap: '5px' }}>
-              <select value={userForm.role} onChange={(e) => setUserForm({ ...userForm, role: e.target.value })} style={{ padding: '8px', flexGrow: '1' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px' }}>Add New Corporate User</h3>
+          <form onSubmit={handleCreateUser} style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+            gap: '12px', 
+            background: '#FFFFFF', 
+            padding: '24px', 
+            borderRadius: '14px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.02)'
+          }}>
+            <input type="text" placeholder="Name (Min 20 chars)" required value={userForm.name} onChange={(e) => setUserForm({ ...userForm, name: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <input type="email" placeholder="Email" required value={userForm.email} onChange={(e) => setUserForm({ ...userForm, email: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <input type="password" placeholder="Password" required value={userForm.password} onChange={(e) => setUserForm({ ...userForm, password: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <input type="text" placeholder="Address" required value={userForm.address} onChange={(e) => setUserForm({ ...userForm, address: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <select value={userForm.role} onChange={(e) => setUserForm({ ...userForm, role: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', flexGrow: '1', outline: 'none', fontWeight: '600' }}>
                 <option value="owner">Store Owner</option>
                 <option value="admin">Admin</option>
               </select>
-              <button type="submit" style={{ padding: '8px 12px', background: '#28A745', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px' }}>Add</button>
+              <button type="submit" style={{ padding: '12px 20px', background: '#1E293B', color: '#FAF7F2', border: 'none', fontWeight: '600', cursor: 'pointer', borderRadius: '8px' }}>Add</button>
             </div>
           </form>
 
-          <h3 style={{ marginTop: '30px' }}>System Users Inventory</h3>
-          {/* Filters */}
-          <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
-            <input type="text" placeholder="Filter by Name" value={userFilters.name} onChange={(e) => setUserFilters({ ...userFilters, name: e.target.value })} style={{ padding: '6px' }} />
-            <input type="text" placeholder="Filter by Email" value={userFilters.email} onChange={(e) => setUserFilters({ ...userFilters, email: e.target.value })} style={{ padding: '6px' }} />
-            <input type="text" placeholder="Filter by Address" value={userFilters.address} onChange={(e) => setUserFilters({ ...userFilters, address: e.target.value })} style={{ padding: '6px' }} />
-            <select value={userFilters.role} onChange={(e) => setUserFilters({ ...userFilters, role: e.target.value })} style={{ padding: '6px' }}>
+          <h3 style={{ marginTop: '40px', fontSize: '18px', fontWeight: '700', marginBottom: '16px' }}>System Users Inventory</h3>
+          {/* Filters Deck */}
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <input type="text" placeholder="🔍 Filter by Name" value={userFilters.name} onChange={(e) => setUserFilters({ ...userFilters, name: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', color: '#1E293B', flex: '1 1 200px' }} />
+            <input type="text" placeholder="✉️ Filter by Email" value={userFilters.email} onChange={(e) => setUserFilters({ ...userFilters, email: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', color: '#1E293B', flex: '1 1 200px' }} />
+            <input type="text" placeholder="📍 Filter by Address" value={userFilters.address} onChange={(e) => setUserFilters({ ...userFilters, address: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', color: '#1E293B', flex: '1 1 200px' }} />
+            <select value={userFilters.role} onChange={(e) => setUserFilters({ ...userFilters, role: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', color: '#1E293B', flex: '1 1 150px', fontWeight: '600' }}>
               <option value="">All Roles</option>
               <option value="user">Normal User</option>
               <option value="owner">Store Owner</option>
@@ -163,72 +247,90 @@ const AdminDashboard = () => {
             </select>
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-            <thead>
-              <tr style={{ background: '#f4f4f4', textAlign: 'left', borderBottom: '2px solid #ddd' }}>
-                <th style={{ padding: '10px' }}>USER ID</th>
-                <th onClick={() => toggleSort('user', 'name')} style={{ padding: '10px', cursor: 'pointer' }}>Name ↕</th>
-                <th onClick={() => toggleSort('user', 'email')} style={{ padding: '10px', cursor: 'pointer' }}>Email ↕</th>
-                <th onClick={() => toggleSort('user', 'address')} style={{ padding: '10px', cursor: 'pointer' }}>Address ↕</th>
-                <th onClick={() => toggleSort('user', 'role')} style={{ padding: '10px', cursor: 'pointer' }}>Role ↕</th>
-                <th style={{ padding: '10px' }}>Owner Store Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map(u => (
-                <tr key={u.id} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '10px', fontWeight: 'bold', color: '#666' }}>#{u.id}</td>
-                  <td style={{ padding: '10px' }}>{u.name}</td>
-                  <td style={{ padding: '10px' }}>{u.email}</td>
-                  <td style={{ padding: '10px' }}>{u.address}</td>
-                  <td style={{ padding: '10px' }}><span style={{ padding: '3px 8px', borderRadius: '12px', fontSize: '12px', background: u.role === 'admin' ? '#E8F0FE' : u.role === 'owner' ? '#FEF7E0' : '#E6F4EA' }}>{u.role}</span></td>
-                  <td style={{ padding: '10px' }}>{u.role === 'owner' ? (u.store_rating ? `${u.store_rating} ★` : 'No reviews yet') : 'N/A'}</td>
+          {/* Responsive Table Pane Wrapper */}
+          <div style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
+            <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'separate', borderSpacing: '0 6px' }}>
+              <thead>
+                <tr style={{ textAlign: 'left' }}>
+                  <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>USER ID</th>
+                  <th onClick={() => toggleSort('user', 'name')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Name ↕</th>
+                  <th onClick={() => toggleSort('user', 'email')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Email ↕</th>
+                  <th onClick={() => toggleSort('user', 'address')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Address ↕</th>
+                  <th onClick={() => toggleSort('user', 'role')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Role ↕</th>
+                  <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Owner Store Rating</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((u, idx) => (
+                  <tr key={u.id} style={{ backgroundColor: idx % 2 === 0 ? '#FFFFFF' : '#FAF7F2' }}>
+                    <td style={{ padding: '16px', fontWeight: '700', color: '#6B7280' }}>#{u.id}</td>
+                    <td style={{ padding: '16px', color: '#1E293B', fontWeight: '600' }}>{u.name}</td>
+                    <td style={{ padding: '16px', color: '#6B7280' }}>{u.email}</td>
+                    <td style={{ padding: '16px', color: '#6B7280' }}>{u.address}</td>
+                    <td style={{ padding: '16px' }}>
+                      <span style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', background: u.role === 'admin' ? '#E0F2FE' : u.role === 'owner' ? '#FEF3C7' : '#D1FAE5', color: u.role === 'admin' ? '#0369A1' : u.role === 'owner' ? '#B45309' : '#047857' }}>
+                        {u.role}
+                      </span>
+                    </td>
+                    <td style={{ padding: '16px', fontWeight: '700', color: '#F59E0B' }}>{u.role === 'owner' ? (u.store_rating ? `★ ${u.store_rating}` : 'Unrated') : 'N/A'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 
       {/* TAB 3: MANAGE STORES */}
       {activeTab === 'stores' && (
         <div>
-          <h3>Add New Registered Store</h3>
-          <form onSubmit={handleCreateStore} style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px', background: '#f9f9f9', padding: '15px', borderRadius: '6px' }}>
-            <input type="text" placeholder="Store Name" required value={storeForm.name} onChange={(e) => setStoreForm({ ...storeForm, name: e.target.value })} style={{ padding: '8px' }} />
-            <input type="email" placeholder="Store Email" required value={storeForm.email} onChange={(e) => setStoreForm({ ...storeForm, email: e.target.value })} style={{ padding: '8px' }} />
-            <input type="text" placeholder="Store Address" required value={storeForm.address} onChange={(e) => setStoreForm({ ...storeForm, address: e.target.value })} style={{ padding: '8px' }} />
-            <input type="text" pattern="[0-9]*" placeholder="Owner User ID (Optional)" value={storeForm.owner_id} onChange={(e) => {const val = e.target.value; if (val === '' || /^[0-9\b]+$/.test(val)){setStoreForm({ ...storeForm, owner_id: val});}}} style={{ padding: '8px' }} />
-            <button type="submit" style={{ padding: '8px 12px', background: '#28A745', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px' }}>Add Store</button>
+          <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px' }}>Add New Registered Store</h3>
+          <form onSubmit={handleCreateStore} style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+            gap: '12px', 
+            background: '#FFFFFF', 
+            padding: '24px', 
+            borderRadius: '14px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.02)'
+          }}>
+            <input type="text" placeholder="Store Name" required value={storeForm.name} onChange={(e) => setStoreForm({ ...storeForm, name: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <input type="email" placeholder="Store Email" required value={storeForm.email} onChange={(e) => setStoreForm({ ...storeForm, email: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <input type="text" placeholder="Store Address" required value={storeForm.address} onChange={(e) => setStoreForm({ ...storeForm, address: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <input type="text" pattern="[0-9]*" placeholder="Owner User ID (Optional)" value={storeForm.owner_id} onChange={(e) => {const val = e.target.value; if (val === '' || /^[0-9\b]+$/.test(val)){setStoreForm({ ...storeForm, owner_id: val});}}} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FAF7F2', color: '#1E293B', outline: 'none' }} />
+            <button type="submit" style={{ padding: '12px 20px', background: '#1E293B', color: '#FAF7F2', border: 'none', fontWeight: '600', cursor: 'pointer', borderRadius: '8px' }}>Add Store</button>
           </form>
 
-          <h3 style={{ marginTop: '30px' }}>Registered Stores Directory</h3>
-          {/* Filters */}
-          <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
-            <input type="text" placeholder="Search by Store Name" value={storeFilters.name} onChange={(e) => setStoreFilters({ ...storeFilters, name: e.target.value })} style={{ padding: '6px' }} />
-            <input type="text" placeholder="Search by Address" value={storeFilters.address} onChange={(e) => setStoreFilters({ ...storeFilters, address: e.target.value })} style={{ padding: '6px' }} />
+          <h3 style={{ marginTop: '40px', fontSize: '18px', fontWeight: '700', marginBottom: '16px' }}>Registered Stores Directory</h3>
+          {/* Filters Deck */}
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <input type="text" placeholder="🔍 Search by Store Name" value={storeFilters.name} onChange={(e) => setStoreFilters({ ...storeFilters, name: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', color: '#1E293B', flex: '1 1 250px' }} />
+            <input type="text" placeholder="📍 Search by Address" value={storeFilters.address} onChange={(e) => setStoreFilters({ ...storeFilters, address: e.target.value })} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', color: '#1E293B', flex: '1 1 250px' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-            <thead>
-              <tr style={{ background: '#f4f4f4', textAlign: 'left', borderBottom: '2px solid #ddd' }}>
-                <th onClick={() => toggleSort('store', 'name')} style={{ padding: '10px', cursor: 'pointer' }}>Store Name ↕</th>
-                <th style={{ padding: '10px' }}>Store Email</th>
-                <th onClick={() => toggleSort('store', 'address')} style={{ padding: '10px', cursor: 'pointer' }}>Address ↕</th>
-                <th onClick={() => toggleSort('store', 'overall_rating')} style={{ padding: '10px', cursor: 'pointer' }}>Overall Avg Rating ↕</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stores.map(s => (
-                <tr key={s.id} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '10px', fontWeight: 'bold' }}>{s.name}</td>
-                  <td style={{ padding: '10px' }}>{s.email}</td>
-                  <td style={{ padding: '10px' }}>{s.address}</td>
-                  <td style={{ padding: '10px', color: '#B06000', fontWeight: 'bold' }}>{s.overall_rating > 0 ? `${s.overall_rating} / 5 ★` : 'Not Rated'}</td>
+          {/* Responsive Table Pane Wrapper */}
+          <div style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
+            <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'separate', borderSpacing: '0 6px' }}>
+              <thead>
+                <tr style={{ textAlign: 'left' }}>
+                  <th onClick={() => toggleSort('store', 'name')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Store Name ↕</th>
+                  <th style={{ padding: '16px', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Store Email</th>
+                  <th onClick={() => toggleSort('store', 'address')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Address ↕</th>
+                  <th onClick={() => toggleSort('store', 'overall_rating')} style={{ padding: '16px', cursor: 'pointer', color: '#1E293B', fontWeight: '700', borderBottom: '2px solid #1E293B' }}>Overall Avg Rating ↕</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {stores.map((s, idx) => (
+                  <tr key={s.id} style={{ backgroundColor: idx % 2 === 0 ? '#FFFFFF' : '#FAF7F2' }}>
+                    <td style={{ padding: '16px', fontWeight: '700', color: '#1E293B' }}>{s.name}</td>
+                    <td style={{ padding: '16px', color: '#6B7280' }}>{s.email}</td>
+                    <td style={{ padding: '16px', color: '#6B7280' }}>{s.address}</td>
+                    <td style={{ padding: '16px', color: '#F59E0B', fontWeight: '800' }}>{s.overall_rating > 0 ? `★ ${s.overall_rating} / 5` : 'Not Rated'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
