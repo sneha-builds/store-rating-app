@@ -16,7 +16,6 @@ const ProtectedRoute = ({ allowedRoles }) => {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  // Outlet means "render the children components inside this route group"
   return <Outlet />;
 };
 

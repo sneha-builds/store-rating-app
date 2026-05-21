@@ -11,10 +11,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
 // Simple temporary dashboard layouts to check verification loops
-const AdminDash = () => { const { logout } = useAuth(); return (<div><h2>👑 System Admin View</h2><button onClick={logout}>Log Out</button></div>); };
-const UserDash = () => { const { logout } = useAuth(); return (<div><h2>👤 Normal User View</h2><button onClick={logout}>Log Out</button></div>); };
-const OwnerDash = () => { const { logout } = useAuth(); return (<div><h2>🏪 Store Owner View</h2><button onClick={logout}>Log Out</button></div>); };
-const Unauthorized = () => (<div><h2>❌ 403 - Access Denied</h2><p>You do not have administrative clearance to access this panel view.</p></div>);
+const AdminDash = () => { const { logout } = useAuth(); return (<div><h2> System Admin View</h2><button onClick={logout}>Log Out</button></div>); };
+const UserDash = () => { const { logout } = useAuth(); return (<div><h2> Normal User View</h2><button onClick={logout}>Log Out</button></div>); };
+const OwnerDash = () => { const { logout } = useAuth(); return (<div><h2> Store Owner View</h2><button onClick={logout}>Log Out</button></div>); };
+const Unauthorized = () => (<div><h2> 403 - Access Denied</h2><p>You do not have administrative clearance to access this panel view.</p></div>);
 
 function App() {
   return (
