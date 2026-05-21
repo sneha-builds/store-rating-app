@@ -4,7 +4,6 @@ const { body, validationResult } = require('express-validator');
 const validateRequest = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // Returns clean, readable array fields of exactly what failed
     return res.status(400).json({ errors: errors.array() });
   }
   next();

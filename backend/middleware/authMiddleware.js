@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   
-  // Professional standard: Expecting "Bearer <token>"
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
