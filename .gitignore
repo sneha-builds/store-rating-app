@@ -1,6 +1,11 @@
-# Secrets
+# Secrets (Crucial Credentials Protection)
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
 
 # Logs
 logs
@@ -11,22 +16,32 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies (Added wildcard to catch node_modules in any subfolder)
+# Dependencies
 node_modules
 **/node_modules
+jspm_packages/
 
-# Production builds
+# Production builds & Compilations
 dist
 dist-ssr
+build/
+.next/
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# IDEs, Editors, and Tooling Configs
+.vscode/
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Operating System System Artifacts (Prevents local path metadata leaks)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
