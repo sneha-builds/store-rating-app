@@ -5,6 +5,7 @@ A secure, full-stack web application designed for a multi-tier store rating plat
 ## System Architecture
 
 The application enforces strict data validation loops at both frontend and backend layers, securing resource endpoints via JSON Web Tokens (JWT) and custom middleware routing guards.
+
 [ React Frontend ]  ---> ( JWT Auth / Role Guards ) ---> [ Express API Server ] ---> [ PostgreSQL Database ]
 
 ## Key Functional Features
