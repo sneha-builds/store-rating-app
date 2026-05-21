@@ -272,7 +272,7 @@ const AdminDashboard = () => {
                         {u.role}
                       </span>
                     </td>
-                    <td style={{ padding: '16px', fontWeight: '700', color: '#F59E0B' }}>{u.role === 'owner' ? (u.store_rating ? `★ ${u.store_rating}` : 'Unrated') : 'N/A'}</td>
+                    <td style={{ padding: '16px', fontWeight: '700', color: '#F59E0B' }}>{u.role === 'owner' ? (u.store_rating ? `★ ${Number(u.store_rating).toFixed(2)}` : 'Unrated') : 'N/A'}</td>
                   </tr>
                 ))}
               </tbody>
