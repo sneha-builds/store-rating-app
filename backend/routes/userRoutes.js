@@ -45,12 +45,6 @@ router.get('/stores', async (req, res) => {
   const safeSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'name';
   const safeOrder = order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
 
-  /* 
-    Professional Query Checklist:
-    - We left join the ratings table ONCE to compute the global store average score.
-    - We left join the ratings table a SECOND time filtered by the current active user ID 
-      to see exactly what score they historically submitted.
-  */
   let queryText = `
     SELECT 
       s.id, 
@@ -109,11 +103,6 @@ router.post('/stores/:id/rate', async (req, res) => {
       return res.status(404).json({ message: 'Target store matching this ID not found.' });
     }
 
-    /*
-      Instead of writing separate POST and PUT routing handlers, a professional uses 
-      "ON CONFLICT DO UPDATE". If a rating rule breaks our unique composite key constraint 
-      (meaning they rated it before), PostgreSQL automatically morphs the query into an UPDATE!
-    */
     const queryText = `
       INSERT INTO ratings (user_id, store_id, rating_value, updated_at)
       VALUES ($1, $2, $3, CURRENT_TIMESTAMP)

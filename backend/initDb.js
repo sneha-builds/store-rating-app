@@ -50,12 +50,12 @@ const setupDatabase = async () => {
   `;
 
   try {
-    console.log("⏳ Connecting to PostgreSQL and building architecture tables...");
+    console.log("Connecting to PostgreSQL & building architecture tables...");
     await pool.query(queryText);
-    console.log("✅ All tables initialized perfectly inside PostgreSQL!");
+    console.log("All tables initialized perfectly inside PostgreSQL!");
     process.exit(0);
   } catch (err) {
-    console.error("❌ Database initialization failed:", err);
+    console.error("Database initialization failed:", err);
     process.exit(1);
   }
 };
