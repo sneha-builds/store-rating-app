@@ -1,4 +1,4 @@
-# Multi-Role Store Rating & Analytics System (PERN Stack)
+# Multi-Role Store Rating & Analytics System (PERN Stack)  
 
 A secure, full-stack web application designed for a multi-tier store rating platform. Built using the **PERN stack** (PostgreSQL, Express.js, React, Node.js), this system features comprehensive Role-Based Access Control (RBAC) separated into three distinct corporate portals: System Administrators, Store Owners and Normal Users.
    
