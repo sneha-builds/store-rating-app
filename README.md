@@ -6,7 +6,7 @@ A secure, full-stack web application designed for a multi-tier store rating plat
 <img width="1256" height="710" alt="Screenshot from 2026-05-21 23-11-49" src="https://github.com/user-attachments/assets/d5e30fd1-2588-42c4-a3dc-5e0351e15f2a" />
 
 <img width="1256" height="710" alt="Screenshot from 2026-05-21 23-12-40" src="https://github.com/user-attachments/assets/60094583-8b57-4606-8f1e-aa22570391ae" />
-    
+                  
 
 
 ## System Architecture
