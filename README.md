@@ -26,7 +26,7 @@ The application enforces strict data validation loops at both frontend and backe
  2. Store Owner Features
 * Performance Metrics: Real-time stream monitoring of the store's mathematically aggregated global average rating.
 
-* Customer Feedback Log: Clean operational table mapping consumer analytics (reviewer name, email, physical address, star value and exact modification timestamps).
+* Customer Feedback Log: Clean operational table mapping consumer analytics (reviewer name, email, physical address, star value and exact modification timestamps).          
 
 * Account Governance: Secure independent account password update functionality matching enterprise length and character parameters.
 
