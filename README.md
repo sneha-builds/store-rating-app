@@ -37,8 +37,8 @@ The application enforces strict data validation loops at both frontend and backe
 
 * Atomic Rating Engine (SQL Upsert): Submit or update star reviews (1-5 scales) running on an atomic database ON CONFLICT DO UPDATE pipeline.
 
-## Technology Stack
-* Frontend: React.js (Vite Engine), React Router DOM (v6), Axios (Interceptors Hook)
+## Technology Stack Used
+* Frontend: React.js (Vite Engine), React Router DOM (v6), Axios (Interceptors Hook) 
 * Backend: Node.js, Express.js, JWT (jsonwebtoken), bcryptjs
 * Database: PostgreSQL (Relational Pooling Engine)
 
@@ -64,7 +64,7 @@ store-rating-app/
 ```
 
 ## Installation & Local Environment Setup
-### Prerequisites
+### Prerequisites 
 * Node.js (v18+)
 * PostgreSQL (v14+) running locally
 
