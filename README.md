@@ -15,8 +15,8 @@ The application enforces strict data validation loops at both frontend and backe
 
 [ React Frontend ]  ---> ( JWT Auth / Role Guards ) ---> [ Express API Server ] ---> [ PostgreSQL Database ]
 
-## Key Functional Features
- 1. System Administrator Features
+## Key Functional Features 
+ 1. System Administrator Features 
 * Analytics Dashboard: Visualizes system-wide mathematical metric totals (Total Users, Registered Stores, Submitted Feedback Logs) processed in parallel.
 
 * User Provisioning: Create administrative accounts, business store owners or normal customers using deterministic password validation constraints.
